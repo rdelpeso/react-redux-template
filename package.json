@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --inline --content-base public/",
     "clean": "rm -fr build && mkdir build",
+    "start-dev-client": "webpack-dev-server --quiet --hot --inline --content-base public/",
     "build-server": "babel -d ./build ./server",
     "build": "npm run clean && npm run build-server",
-    "start-server": "npm run build && webpack && node ./build/index.js"
+    "start-dev-server": "npm run build && webpack && node ./build/index.js",
+    "start-dev": "node node_modules/concurrently/src/main.js -k -p \"{time}-{pid}\" \"npm run start-dev-client\" \"npm run start-dev-server\""
   },
   "keywords": [],
   "author": "",
@@ -25,6 +25,7 @@
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.5.2",
+    "concurrently": "^2.0.0",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "react-router-redux": "^3.0.0",
