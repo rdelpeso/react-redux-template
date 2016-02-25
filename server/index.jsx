@@ -22,7 +22,7 @@ app.get('/get', (req, res) => {
 
 app.get('/plus', (req, res) => {
 	store.count = store.count + 1;
-	res.json({status: 'ok'});
+	res.json({status: 'ok', count: store.count});
 });
 
 app.listen(3000);

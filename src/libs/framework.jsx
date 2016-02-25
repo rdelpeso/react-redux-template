@@ -1,5 +1,6 @@
 import assign from 'object-assign';
 import ucfirst from 'ucfirst';
+import 'babel-polyfill';
 
 let includes = ['store', 'model', 'view', 'lib'];
 let basePath = './../';
