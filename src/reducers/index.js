@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { RECEIVE_COUNTER, REQUESTED_COUNTER, REQUESTED_INCREMENT } from '../actions';
+import { routerReducer } from 'react-router-redux'
 
 function counterValue(state = {
   value: 0,
@@ -26,5 +27,5 @@ function counterValue(state = {
   }
 }
 
-const reducer = combineReducers({ counterValue });
+const reducer = combineReducers({ counterValue, routing: routerReducer });
 export default reducer

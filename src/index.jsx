@@ -4,7 +4,4 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import './shared/base.css';
 import Root from './containers/root.js'
 
-ReactDOM.render(
-  <Root />,
-  document.getElementById('app')
-);
+ReactDOM.render(<Root />, document.getElementById('app'));
