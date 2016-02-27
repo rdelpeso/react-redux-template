@@ -1,11 +1,18 @@
 import fetch from 'isomorphic-fetch';
 
-export const REQUEST_INCREMENT = 'REQUEST_INCREMENT';
+export const REQUESTED_INCREMENT = 'REQUESTED_INCREMENT';
 export const RECEIVE_COUNTER = 'RECEIVE_COUNTER';
+export const REQUESTED_COUNTER = 'REQUESTED_COUNTER';
 
-function requestIncrement() {
+function requestedIncrement() {
 	return {
-		type: REQUEST_INCREMENT
+		type: REQUESTED_INCREMENT
+	}
+}
+
+function requestedCounter() {
+	return {
+		type: REQUESTED_COUNTER
 	}
 }
 
@@ -16,39 +23,28 @@ function receiveCounter(json) {
 	}
 }
 
-function getCounter() {
-	return (dispatch) => {
-		return fetch('/get')
-			.then(req => req.json())
-			.then(json => dispatch(receiveCounter(json)))
-	}
+function shouldIncrement(state) {
+	return !state.isFetching;
 }
 
-function incrementCounter() {
-	return (dispatch) => {
-		dispatch(requestIncrement());
+export function clickCounter() {
+	return (dispatch, getState) => {
+		if (!shouldIncrement(getState())) {
+			return Promise.resolve();
+		}
 
+		dispatch(requestedIncrement());
 		return fetch('/plus')
 			.then(req => req.json())
 			.then(json => dispatch(receiveCounter(json)))
 	}
 }
 
-function shouldIncrement(state) {
-	return !state.isFetching;
-}
-
 export function refreshCounter() {
-	return (dispatch, getState) => {
-		return dispatch(getCounter())
-	}
-}
-
-export function clickCounter() {
-	return (dispatch, getState) => {
-		if (shouldIncrement(getState())) {
-			return dispatch(incrementCounter());
-		}
-		return Promise.resolve();
+	return (dispatch) => {
+		dispatch(requestedCounter());
+		return fetch('/get')
+			.then(req => req.json())
+			.then(json => dispatch(receiveCounter(json)));
 	}
 }

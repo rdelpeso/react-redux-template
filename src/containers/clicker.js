@@ -14,18 +14,19 @@ class Clicker extends Component {
   };
 
   render() {
-    const { counterValue } = this.props;
-    return (
-      <ClickerComponent value={counterValue}
-        onClick={this.handleClick} />
+    const { value, fetching, clicked } = this.props;
+    return (<ClickerComponent
+      value={value}
+      fetching={fetching}
+      clicked={clicked}
+      onClick={this.handleClick} />
     );
   }
-
 }
 
 function mapStateToProps(state) {
-  const { counterValue } = state
-  return { counterValue };
+  const { counterValue: {isFetching: fetching, wasClicked: clicked, value: value} } = state;
+  return { fetching, clicked, value };
 }
 
 export default connect(mapStateToProps)(Clicker)
