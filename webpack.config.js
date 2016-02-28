@@ -1,16 +1,21 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var publicPath = true ?
+		"http://localhost:8080/assets/" :
+		"/assets/";
+
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/index.jsx'
   ],
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
     filename: 'bundle.js',
-    publicPath: '/assets/'
+    publicPath: publicPath
   },
   resolve: {
     alias: {
@@ -22,7 +27,7 @@ module.exports = {
       { test: /\.css$/, loader: 'style!css!' },
       { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
       { test: /\.(ttf|eot)$/, loader: 'file' },
-      { test: /.jsx?$/, loader: 'babel', exclude: /node_modules/ }
+      { test: /.jsx?$/, loader: 'react-hot!babel', exclude: /node_modules/ }
     ]
   },
   plugins: [
@@ -35,7 +40,6 @@ module.exports = {
       ReactDOM: 'react-dom'
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
