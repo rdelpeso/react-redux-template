@@ -34,7 +34,7 @@ export function clickCounter() {
 		}
 
 		dispatch(requestedIncrement());
-		return fetch('/plus')
+		return fetch('/api/v1/counter/plus')
 			.then(req => req.json())
 			.then(json => dispatch(receiveCounter(json)))
 	}
@@ -43,7 +43,7 @@ export function clickCounter() {
 export function refreshCounter() {
 	return (dispatch) => {
 		dispatch(requestedCounter());
-		return fetch('/get')
+		return fetch('/api/v1/counter/get')
 			.then(req => req.json())
 			.then(json => dispatch(receiveCounter(json)));
 	}
