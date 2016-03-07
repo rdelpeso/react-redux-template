@@ -1,0 +1,15 @@
+{
+  "presets": ["es2015","stage-0","react"],
+  "env": {
+    "development": {
+      "presets": ["react-hmre"]
+    }
+  },
+  "plugins": [
+    ["babel-plugin-module-alias", [
+      { "src": "./server/configs", "expose": "configs" },
+      { "src": "./server/controllers", "expose": "controllers" },
+      { "src": "./server/models", "expose": "models" }
+    ]]
+  ]
+}
