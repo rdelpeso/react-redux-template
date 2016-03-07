@@ -17,11 +17,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: publicPath
   },
-  resolve: {
-    alias: {
-      jquery: 'jquery/src/jquery'
-    }
-  },
   module: {
     loaders: [
       { test: /\.css$/, loader: 'style!css!' },

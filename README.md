@@ -15,7 +15,7 @@ The server in dev runs on port http://localhost:3000
 - node cli.js -d
 
 ## Running Prod
-- node cli.js -d
+- node cli.js
 
 ## Deploying
 - Run the app as production
